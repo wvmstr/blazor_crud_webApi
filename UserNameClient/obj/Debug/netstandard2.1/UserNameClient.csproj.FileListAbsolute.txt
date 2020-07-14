@@ -400,6 +400,6 @@ C:\Users\Robert\source\Repos\SchoolNew\UserNameClient\obj\Debug\netstandard2.1\s
 C:\Users\Robert\source\Repos\SchoolNew\UserNameClient\obj\Debug\netstandard2.1\staticwebassets\UserNameClient.StaticWebAssets.xml
 C:\Users\Robert\source\Repos\SchoolNew\UserNameClient\obj\Debug\netstandard2.1\UserNameClient.dll
 C:\Users\Robert\source\Repos\SchoolNew\UserNameClient\obj\Debug\netstandard2.1\UserNameClient.pdb
-C:\Users\Robert\source\Repos\SchoolNew\UserNameClient\obj\Debug\netstandard2.1\integrity\ohhS7lhNUt7rWo_jtBoOQIi30xvL6my0lrvGuq_7ors=.hash
-C:\Users\Robert\source\Repos\SchoolNew\UserNameClient\obj\Debug\netstandard2.1\integrity\5PMK5_QpnYO1Yp6_JWEojy_wfTGujze-3Jkurc-vFXk=.hash
-C:\Users\Robert\source\Repos\SchoolNew\UserNameClient\obj\Debug\netstandard2.1\integrity\Gy5L3caJRFOOVd0w8fF9bQZaaT70juPjv5pD93OF2vg=.hash
+C:\Users\Robert\source\Repos\SchoolNew\UserNameClient\obj\Debug\netstandard2.1\integrity\eR5JodWzfCBs_1RdaByTozL2hIPSJY_x2I3bUNtEvrw=.hash
+C:\Users\Robert\source\Repos\SchoolNew\UserNameClient\obj\Debug\netstandard2.1\integrity\I7a9bDCRTFCnTGgydXdMBz4RbkROAGIsdtqyTveBsL4=.hash
+C:\Users\Robert\source\Repos\SchoolNew\UserNameClient\obj\Debug\netstandard2.1\integrity\qN65HnEmnMDfZfKNyi7ndewTEHS3s2GHfoR4seQIrY0=.hash

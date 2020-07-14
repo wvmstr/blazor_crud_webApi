@@ -53,13 +53,13 @@ else
         <thead>
             <tr>
                 <th><MatIconButton Icon="person-add" Style="color:green;" OnClick="@(e => { createDialogOpen = true; })"></MatIconButton></th>
-                <th><img src="@ImageSortname" @onclick="@(async () => await Sorting("NameId"))" />Id</th>
-                <th><img src="@ImageSortname" @onclick="@(async () => await Sorting("Service"))" />Service</th>
-                <th><img src="@ImageSortname" @onclick="@(async () => await Sorting("User"))" />User</th>
-                <th><img src="@ImageSortname" @onclick="@(async () => await Sorting("Email"))" />Email</th>
-                <th><img src="@ImageSortname" @onclick="@(async () => await Sorting("Url"))" />Url</th>
-                <th><img src="@ImageSortname" @onclick="@(async () => await Sorting("Password"))" />Password</th>
-                <th><img src="@ImageSortname" @onclick="@(async () => await Sorting("modified"))" />Modified</th>
+                <th><img src="@ImageSortname" @onclick="@(async () => await Sorting("NameId"))" style="padding-right:8px;"/>Id</th>
+                <th><img src="@ImageSortname" @onclick="@(async () => await Sorting("Service"))" style="padding-right:8px;" />Service</th>
+                <th><img src="@ImageSortname" @onclick="@(async () => await Sorting("User"))" style="padding-right:8px;" />User</th>
+                <th><img src="@ImageSortname" @onclick="@(async () => await Sorting("Email"))" style="padding-right:8px;" />Email</th>
+                <th><img src="@ImageSortname" @onclick="@(async () => await Sorting("Url"))" style="padding-right:8px;" />Url</th>
+                <th><img src="@ImageSortname" @onclick="@(async () => await Sorting("Password"))" style="padding-right:8px;" />Password</th>
+                <th><img src="@ImageSortname" @onclick="@(async () => await Sorting("modified"))" style="padding-right:8px;" />Modified</th>
             </tr>
             <tr style="height: 30px; background-color:#336699 ; color:#FFFFFF ;">
                 <td width="30" align="center"></td>

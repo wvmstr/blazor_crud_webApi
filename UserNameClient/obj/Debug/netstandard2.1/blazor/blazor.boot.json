@@ -6,7 +6,7 @@
   "linkerEnabled": false,
   "resources": {
     "assembly": {
-      "UserNameClient.dll": "sha256-ohhS7lhNUt7rWo+jtBoOQIi30xvL6my0lrvGuq+7ors=",
+      "UserNameClient.dll": "sha256-eR5JodWzfCBs+1RdaByTozL2hIPSJY+x2I3bUNtEvrw=",
       "System.Text.Json.dll": "sha256-HQeN+ZfHAERO+uW0fP0J9J3WV1hQ3vUIOWbqGSYBPp8=",
       "System.Runtime.CompilerServices.Unsafe.dll": "sha256-kL\/omZDwqByAi+lPdMeDmr3XjHcn4RVb+LmZ4mut1Yc=",
       "mscorlib.dll": "sha256-BaZPMj95+YNe3G4ckTGD6szZFwZeA2MOHn91zTGKDeU=",
@@ -63,7 +63,7 @@
       "MatBlazor.dll": "sha256-zokzJodVLqAJrKX8z9P8WoocMxu9O46AzUixkih8VB4="
     },
     "pdb": {
-      "UserNameClient.pdb": "sha256-5PMK5+QpnYO1Yp6+JWEojy+wfTGujze\/3Jkurc\/vFXk=",
+      "UserNameClient.pdb": "sha256-I7a9bDCRTFCnTGgydXdMBz4RbkROAGIsdtqyTveBsL4=",
       "UserNameLibrary.pdb": "sha256-z\/51qv5N7QuFWQgXFU1qQycM2KlP8vJjIkZbRyNtjH8="
     },
     "runtime": {
