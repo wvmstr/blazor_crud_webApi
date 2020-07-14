@@ -1,0 +1,29 @@
+﻿@page "/usernameedit/{NameId:int}"
+@inject IHttpClientFactory ClientFactory
+@inject NavigationManager navManager 
+
+<h3>Edit</h3>
+
+<UserNameForm ButtonText="Save Changes" UserName="@editedUserName" OnValidSubmit="@EditUserName" />
+
+@code {
+
+    [Parameter] public int NameId { get; set; }
+    UserName editedUserName = new UserName();
+
+    protected async override Task OnParametersSetAsync()
+    {
+        var httpClient = ClientFactory.CreateClient("ServerAPI");
+        editedUserName = await httpClient.GetFromJsonAsync<UserName>($"api/usernames/{NameId}");
+    }
+
+    async Task EditUserName()
+    {
+        var httpClient = ClientFactory.CreateClient("ServerAPI");
+        editedUserName.modified = DateTime.UtcNow;
+        await httpClient.PutAsJsonAsync("api/usernames", editedUserName ); ///*editedUserName*/
+        navManager.NavigateTo("usernames");
+
+    }
+
+}

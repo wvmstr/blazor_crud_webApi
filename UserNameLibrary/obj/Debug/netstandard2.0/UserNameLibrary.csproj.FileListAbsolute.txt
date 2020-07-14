@@ -1,0 +1,9 @@
+C:\Users\Robert\source\Repos\SchoolNew\UserNameLibrary\bin\Debug\netstandard2.0\UserNameLibrary.deps.json
+C:\Users\Robert\source\Repos\SchoolNew\UserNameLibrary\bin\Debug\netstandard2.0\UserNameLibrary.dll
+C:\Users\Robert\source\Repos\SchoolNew\UserNameLibrary\bin\Debug\netstandard2.0\UserNameLibrary.pdb
+C:\Users\Robert\source\Repos\SchoolNew\UserNameLibrary\obj\Debug\netstandard2.0\UserNameLibrary.AssemblyInfoInputs.cache
+C:\Users\Robert\source\Repos\SchoolNew\UserNameLibrary\obj\Debug\netstandard2.0\UserNameLibrary.AssemblyInfo.cs
+C:\Users\Robert\source\Repos\SchoolNew\UserNameLibrary\obj\Debug\netstandard2.0\UserNameLibrary.csproj.CoreCompileInputs.cache
+C:\Users\Robert\source\Repos\SchoolNew\UserNameLibrary\obj\Debug\netstandard2.0\UserNameLibrary.dll
+C:\Users\Robert\source\Repos\SchoolNew\UserNameLibrary\obj\Debug\netstandard2.0\UserNameLibrary.pdb
+C:\Users\Robert\source\Repos\SchoolNew\UserNameLibrary\obj\Debug\netstandard2.0\UserNameLibrary.csprojAssemblyReference.cache

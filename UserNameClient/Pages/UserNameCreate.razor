@@ -1,0 +1,20 @@
+﻿@page "/usernamecreate"
+@inject IHttpClientFactory ClientFactory
+@inject NavigationManager navManager 
+
+<h3>Add New</h3>
+
+<UserNameForm ButtonText ="Create New" UserName="@UserName" OnValidSubmit="@CreateUserName" />
+
+
+
+@code {
+    UserName UserName = new UserName();
+
+    async Task CreateUserName()
+    {
+        var httpClient = ClientFactory.CreateClient("ServerAPI");
+        await httpClient.PostAsJsonAsync("api/usernames", UserName);
+        navManager.NavigateTo("UserNames");
+    }
+}

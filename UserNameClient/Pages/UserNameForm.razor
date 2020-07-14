@@ -1,0 +1,29 @@
+﻿<EditForm Model="@UserName" OnValidSubmit="@OnValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <br />
+    <p>
+        <MatStringField @bind-Value="@UserName.Service" Label="Service"></MatStringField>
+    </p>
+    <p>
+        <MatStringField @bind-Value="@UserName.User" Label="User"></MatStringField>
+    </p>
+    <p>
+        <MatStringField @bind-Value="@UserName.Email" Label="Email"></MatStringField>
+    </p>
+    <p>
+        <MatStringField @bind-Value="@UserName.Url" Label="Url"></MatStringField>
+    </p>
+    <p>
+        <MatStringField @bind-Value="@UserName.Password" Type="password" Label="Password"></MatStringField>
+    </p>
+    <br />
+    <MatButton type="submit" >@ButtonText</MatButton>
+
+</EditForm>
+
+@code {
+    [Parameter] public UserName UserName { get; set; }
+    [Parameter] public string ButtonText { get; set; } = "Save";
+    [Parameter] public EventCallback OnValidSubmit { get; set; }
+}

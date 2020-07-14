@@ -1,0 +1,37 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <RazorLangVersion>3.0</RazorLangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Pages\EditUserName.cs" />
+    <Compile Remove="Pages\EditUserName.cshtml.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Pages\CopyToClipboard.razor" />
+    <Content Remove="Pages\EditMovie.razor" />
+    <Content Remove="Pages\EditUserName.cshtml" />
+    <Content Remove="Pages\EditUserName.razor" />
+    <Content Remove="Pages\UserNameCreate.razor" />
+    <Content Remove="Pages\UserNameEdit.razor" />
+    <Content Remove="Pages\UserNameInsert.razor" />
+    <Content Remove="Pages\UserNames.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Blazored.Modal" Version="4.1.0" />
+    <PackageReference Include="MatBlazor" Version="2.6.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="3.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Build" Version="3.2.0" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="3.2.0" PrivateAssets="all" />
+    <PackageReference Include="System.Net.Http.Json" Version="3.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\UserNameLibrary\UserNameLibrary.csproj" />
+  </ItemGroup>
+
+</Project>

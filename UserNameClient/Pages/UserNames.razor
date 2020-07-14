@@ -1,0 +1,448 @@
+@page "/usernames"
+@inject IHttpClientFactory ClientFactory
+@inject NavigationManager navManager
+@inject IJSRuntime js
+@inject IModalService Modal
+@inject IModalService Modal1
+@inject IModalService Modal2
+@inject IMatToaster matToaster
+
+<h1>User Names</h1>
+
+<MatDialog @bind-IsOpen="@createDialogOpen">
+    <MatDialogTitle>Add multiple UserNames</MatDialogTitle>
+    <MatDialogContent>
+        <UserNameForm ButtonText="Add ++" UserName="@newUserName" OnValidSubmit="@NewUserName" />
+    </MatDialogContent>
+    <MatDialogActions>
+        <MatButton OnClick="@(e => { createDialogOpen = false; })">Done</MatButton>
+    </MatDialogActions>
+</MatDialog>
+
+<MatDialog @bind-IsOpen="@editDialogOpen">
+    <MatDialogTitle>Edit UserName</MatDialogTitle>
+    <MatDialogContent>
+        <UserNameForm ButtonText="Save Changes" UserName="@newUserName" OnValidSubmit="@EditUserName" />
+    </MatDialogContent>
+    <MatDialogActions>
+        <MatButton OnClick="@(e => { editDialogOpen = false; })">Done</MatButton>
+    </MatDialogActions>
+</MatDialog>
+
+<MatDialog @bind-IsOpen="@deleteDialogOpen">
+    <MatDialogTitle>Delete UserName</MatDialogTitle>
+    <MatDialogContent>
+        <UserNameForm ButtonText="Confirm Delete" UserName="@newUserName" OnValidSubmit="@DeleteUserName" />
+    </MatDialogContent>
+    <MatDialogActions>
+        <MatButton OnClick="@(e => { deleteDialogOpen = false; })">Done</MatButton>
+    </MatDialogActions>
+</MatDialog>
+
+<MatTable>
+    <MatTableHeader>
+
+    </MatTableHeader>
+    <MatTableRow>
+
+    </MatTableRow>
+</MatTable>
+
+@if (usernames == null)
+{
+<p><em>loading...</em></p>
+}
+else if (usernames.Count() == 0)
+{
+<p><em>no records...</em></p>
+}
+else
+{
+<table class='table table-hover'>
+    <thead>
+        <tr>
+            <th><MatIconButton Icon="person-add" Style="color:green;" OnClick="@(e => { createDialogOpen = true; })"></MatIconButton></th>
+            <th><img src="@ImageSortname" @onclick="@(async () => await Sorting(" NameId"))" />Id</th>
+            <th><img src="@ImageSortname" @onclick="@(async () => await Sorting(" Service"))" />Service</th>
+            <th><img src="@ImageSortname" @onclick="@(async () => await Sorting(" User"))" />User</th>
+            <th><img src="@ImageSortname" @onclick="@(async () => await Sorting(" Email"))" />Email</th>
+            <th><img src="@ImageSortname" @onclick="@(async () => await Sorting(" Url"))" />Url</th>
+            <th><img src="@ImageSortname" @onclick="@(async () => await Sorting(" Password"))" />Password</th>
+            <th><img src="@ImageSortname" @onclick="@(async () => await Sorting(" modified"))" />Modified</th>
+        </tr>
+        <tr style="height: 30px; background-color:#336699 ; color:#FFFFFF ;">
+            <td width="30" align="center"></td>
+            <td width="80" align="center">Filter : </td>
+            <td width="240" align="center">
+                <input width="70" @onchange=@OnServiceChanged oninput="(this.dispatchEvent(new CustomEvent('change', {bubbles: true})))" />
+            </td>
+            <td width="240" align="center">
+                <input width="70" @onchange=@OnUserChanged oninput="(this.dispatchEvent(new CustomEvent('change', {bubbles: true})))" />
+            </td>
+            <td width="240" align="center">
+                <input width="70" @onchange=@OnEmailChanged oninput="(this.dispatchEvent(new CustomEvent('change', {bubbles: true})))" />
+            </td>
+            <td width="120" align="center">
+                <input width="70" @onchange=@OnUrlChanged oninput="(this.dispatchEvent(new CustomEvent('change', {bubbles: true})))" />
+            </td>
+            <td width="340" align="center">
+                <input width="70" @onchange=@OnPasswordChanged oninput="(this.dispatchEvent(new CustomEvent('change', {bubbles: true})))" />
+            </td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in usernames)
+        {
+
+        <tr>
+            <td>
+                <div style="width:155px;">
+                    <MatButton Class="mat" Style="color:orange;" Target="_blank" Outlined="false" Icon="edit" @onclick="@(() => OpenEditDialog(item.NameId))"></MatButton>
+
+                    <MatButton Class="mat" Style="color:red;" Target="_blank" Outlined="false" Icon="delete" @onclick="@(() => OpenDeleteDialog(item.NameId))"></MatButton>
+                </div>
+            </td>
+            <td style="width:155px;">@item.NameId</td>
+            <td>@item.Service</td>
+            <td>@item.User</td>
+            <td>@item.Email</td>
+            @if (item.Url != null)
+            {
+            <td>
+                <div style="width:155px;">
+                    <MatButton Class="mat" Target="_blank" Outlined="false" Icon="link" Link="@item.Url"></MatButton>
+
+                </div>
+            </td>
+
+            }
+            else
+            {
+            <td><MatButton Class="mat" Target="_blank" Outlined="false" Icon="link_off" Link="#" Style="color:lightgray"></MatButton></td>
+            }
+            <td>@item.Password</td>
+            <td>@item.modified</td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+
+}
+
+
+@code
+{
+    public class Car
+    {
+        public string Name { get; set; }
+        public double Price { get; set; }
+        public int Horsepower { get; set; }
+
+        public Car(string name, double price, int horsepower)
+        {
+            Name = name;
+            Price = price;
+            Horsepower = horsepower;
+        }
+    }
+
+    Car[] cars = new[]
+    {
+                new Car("Volkswagen Golf", 10000, 220),
+                new Car("Volkswagen Passat", 11000, 240),
+                new Car("Volkswagen Polo", 12000, 110),
+                new Car("Ford Focus", 13000, 200),
+                new Car("Ford Fiesta", 14000, 160),
+                new Car("Ford Fusion", 15000, 260),
+                new Car("Ford Mondeo", 16000, 120),
+    };
+
+
+    UserName[] usernames;
+
+    UserName newUserName = new UserName();
+
+    [Parameter] public int NameId { get; set; }
+    UserName editedUserName = new UserName();
+
+    int nameId;
+    string service;
+    string user;
+    string email;
+    string url;
+    string password;
+    DateTime modified;
+    int ids = 0;
+    int nameIds = 0;
+    string ImageSortname = "Images/sortAsc.png";
+
+    bool createDialogOpen = false;
+    bool editDialogOpen = false;
+    bool deleteDialogOpen = false;
+
+    protected async override Task OnInitializedAsync()
+    {
+        try
+        {
+            var httpClient = ClientFactory.CreateClient("ServerAPI");
+            usernames = await httpClient.GetFromJsonAsync<UserName[]>
+    ("api/usernames");
+
+    if (usernames != null)
+    {
+    string recordCount = String.Format("{0} records retrieved", usernames.Count());
+    matToaster.Add(recordCount, MatToastType.Success);
+    }
+    else
+    {
+    matToaster.Add("no records found", MatToastType.Warning);
+    }
+    }
+    catch (Exception ex) { Console.WriteLine(ex.Message); }
+
+
+    }
+
+    async Task NewUserName()
+    {
+    newUserName.created = DateTime.UtcNow;
+    newUserName.modified = DateTime.UtcNow;
+    var httpClient = ClientFactory.CreateClient("ServerAPI");
+    var response = await httpClient.PostAsJsonAsync("api/usernames", newUserName);
+    if (response.IsSuccessStatusCode)
+    {
+    matToaster.Add(response.ReasonPhrase, MatToastType.Success);
+    }
+    else
+    {
+    matToaster.Add(response.ReasonPhrase, MatToastType.Warning);
+    }
+    await Refresh();
+    }
+
+    public void OpenDeleteDialog(int Id)
+    {
+    newUserName = new UserName();
+    newUserName = usernames.Where(x => x.NameId == Id).SingleOrDefault(); // load the user information into the temp user object for worry free editing
+    deleteDialogOpen = true;
+    }
+
+    async Task DeleteUserName()
+    {
+    var httpClient = ClientFactory.CreateClient("ServerAPI");
+    var response = await httpClient.DeleteAsync($"api/usernames/{newUserName.NameId}");
+    if (response.IsSuccessStatusCode)
+    {
+    matToaster.Add("username deleted", MatToastType.Success);
+    }
+    else
+    {
+    matToaster.Add("failed", MatToastType.Warning);
+    }
+    ClearFields();
+    await Refresh();
+    }
+
+    public void OpenEditDialog(int Id)
+    {
+    newUserName = new UserName();
+    newUserName = usernames.Where(x => x.NameId == Id).SingleOrDefault(); // load the user information into the temp user object for worry free editing
+    editDialogOpen = true;
+    //editedUserName.SaveState();
+    }
+
+    async Task EditUserName()
+    {
+    var httpClient = ClientFactory.CreateClient("ServerAPI");
+    var response = await httpClient.PutAsJsonAsync("api/usernames", newUserName); ///*editedUserName*/
+    if (response.IsSuccessStatusCode)
+    {
+    matToaster.Add("changes saved", MatToastType.Success);
+    }
+    else
+    {
+    matToaster.Add("failed", MatToastType.Warning);
+    }
+    ClearFields();
+    await Refresh();
+
+    }
+
+    //Sorting
+    protected async Task Sorting(string sortColumn)
+    {
+    var httpClient = ClientFactory.CreateClient("ServerAPI");
+    usernames = await httpClient.GetFromJsonAsync<UserName[]>
+        ("api/usernames");
+
+        if (ids == 0)
+        {
+        ImageSortname = "Images/sortAsc.png";
+        ids = 1;
+
+        switch (sortColumn)
+        {
+        case "NameId":
+        usernames = usernames.OrderBy(x => x.NameId).ToArray();
+        break;
+        case "Service":
+        usernames = usernames.OrderBy(x => x.Service).ToArray();
+        break;
+        case "User":
+        usernames = usernames.OrderBy(x => x.User).ToArray();
+        break;
+        case "Email":
+        usernames = usernames.OrderBy(x => x.Email).ToArray();
+        break;
+        case "Url":
+        usernames = usernames.OrderBy(x => x.Url).ToArray();
+        break;
+        case "Password":
+        usernames = usernames.OrderBy(x => x.Password).ToArray();
+        break;
+        case "modified":
+        usernames = usernames.OrderBy(x => x.modified).ToArray();
+        break;
+        }
+        }
+        else
+        {
+        ImageSortname = "Images/sortDes.png";
+        ids = 0;
+
+        switch (sortColumn)
+        {
+        case "NameId":
+        usernames = usernames.OrderByDescending(x => x.NameId).ToArray();
+        break;
+        case "Service":
+        usernames = usernames.OrderByDescending(x => x.Service).ToArray();
+        break;
+        case "User":
+        usernames = usernames.OrderByDescending(x => x.User).ToArray();
+        break;
+        case "Email":
+        usernames = usernames.OrderByDescending(x => x.Email).ToArray();
+        break;
+        case "Url":
+        usernames = usernames.OrderByDescending(x => x.Url).ToArray();
+        break;
+        case "Password":
+        usernames = usernames.OrderByDescending(x => x.Password).ToArray();
+        break;
+        case "modified":
+        usernames = usernames.OrderByDescending(x => x.modified).ToArray();
+        break;
+        }
+        }
+        }
+
+        protected async Task Filtering(String Value, string columnName)
+        {
+        var httpClient = ClientFactory.CreateClient("ServerAPI");
+        usernames = await httpClient.GetFromJsonAsync<UserName[]>
+            ("api/usernames");
+
+            if (Value.Trim().Length > 0)
+            {
+            switch (columnName)
+            {
+            case "Service":
+            usernames = usernames.Where(x => x.Service.Contains(Value)).ToArray();
+            break;
+            case "User":
+            usernames = usernames.Where(x => x.User.Contains(Value)).ToArray();
+            break;
+            case "Email":
+            usernames = usernames.Where(x => x.Email.ToUpper().StartsWith(Value.ToUpper())).ToArray();
+            break;
+            case "Url":
+            usernames = usernames.Where(x => x.Url.Contains(Value)).ToArray();
+            break;
+            case "Password":
+            usernames = usernames.Where(x => x.Password.Contains(Value)).ToArray();
+            break;
+            }
+            }
+            else
+            {
+            //var httpClient = ClientFactory.CreateClient("ServerAPI");
+            usernames = await httpClient.GetFromJsonAsync<UserName[]>
+                ("api/usernames");
+                }
+                }
+
+                void OnServiceChanged(ChangeEventArgs args)
+                {
+                string values = args.Value.ToString();
+                Filtering(values, "Service");
+                }
+
+                void OnUserChanged(ChangeEventArgs args)
+                {
+                string values = args.Value.ToString();
+                Filtering(values, "User");
+                }
+
+                void OnEmailChanged(ChangeEventArgs args)
+                {
+                string values = args.Value.ToString();
+                Filtering(values, "Email");
+                }
+
+                void OnUrlChanged(ChangeEventArgs args)
+                {
+                string values = args.Value.ToString();
+                Filtering(values, "Url");
+                }
+
+                void OnPasswordChanged(ChangeEventArgs args)
+                {
+                string values = args.Value.ToString();
+                Filtering(values, "Password");
+                }
+
+                private async Task Insert()
+                {
+                UserName username = new UserName()
+                {
+                Service = service,
+                User = user,
+                Email = email,
+                Url = url,
+                Password = password,
+                modified = DateTime.UtcNow
+                };
+                try
+                {
+                var httpClient = ClientFactory.CreateClient("ServerAPI");
+                await httpClient.PostAsJsonAsync("api/usernames", username);
+                //ClearFields();
+                await Refresh();
+                }
+                catch (Exception ex)
+                {
+                Console.WriteLine(ex.Message);
+                }
+                }
+
+                protected void ClearFields()
+                {
+                service = string.Empty;
+                url = string.Empty;
+                user = string.Empty;
+                email = string.Empty;
+                password = string.Empty;
+
+                }
+
+                private async Task Refresh()
+                {
+                var httpClient = ClientFactory.CreateClient("ServerAPI");
+                usernames = await httpClient.GetFromJsonAsync<UserName[]>
+                    ("api/usernames");
+                    StateHasChanged();
+                    }
+
+                    }

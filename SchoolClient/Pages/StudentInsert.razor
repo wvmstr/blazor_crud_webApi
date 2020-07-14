@@ -1,0 +1,37 @@
+﻿@page "/addstudents"
+@inject IHttpClientFactory ClientFactory
+
+<h1>Save Student</h1>
+
+<EditForm Model="@Student" OnValidSubmit="HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <div>
+        <InputText id="firstname" @bind-Value="Student.FirstName" />
+    </div>
+    <div>
+        <InputText id="lastname" @bind-Value="Student.LastName" />
+    </div>
+    <div>
+        <InputText id="scool" @bind-Value="Student.School" />
+    </div>
+
+    <button type="submit">Submit</button>
+</EditForm>
+
+@code {
+    Student Student = new Student();
+
+    private async Task HandleValidSubmit()
+    {
+        try
+        {
+            var httpClient = ClientFactory.CreateClient("ServerAPI");
+            await httpClient.PostAsJsonAsync("api/students", Student);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+    }
+}
