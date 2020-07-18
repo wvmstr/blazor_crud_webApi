@@ -47,13 +47,29 @@ else if (usernames.Count() == 0)
 {
     <p><em>no records...</em></p>
 }
+else if (1 == 0)
+{
+    <MatTable ApiUrl="https://localhost:44393/api/usernames" Items="@usernames" AllowSelection="true" RowClass="tester" FilterByColumnName="Email" class="mat-elevation-z5">
+            <MatTableHeader>
+                <th>Name</th>
+                <th>Modified</th>
+                <th>Email</th>
+            </MatTableHeader>
+            <MatTableRow>
+                <td>@context.NameId</td>
+                <td>@context.modified</td>
+                <td>@context.Email</td>
+            </MatTableRow>
+
+    </MatTable>
+}
 else
 {
     <table class='table table-hover'>
         <thead>
             <tr>
                 <th><MatIconButton Icon="person-add" Style="color:green;" OnClick="@(e => { createDialogOpen = true; })"></MatIconButton></th>
-                <th><img src="@ImageSortname" @onclick="@(async () => await Sorting("NameId"))" style="padding-right:8px;"/>Id</th>
+                <th><img src="@ImageSortname" @onclick="@(async () => await Sorting("NameId"))" style="padding-right:8px;" />Id</th>
                 <th><img src="@ImageSortname" @onclick="@(async () => await Sorting("Service"))" style="padding-right:8px;" />Service</th>
                 <th><img src="@ImageSortname" @onclick="@(async () => await Sorting("User"))" style="padding-right:8px;" />User</th>
                 <th><img src="@ImageSortname" @onclick="@(async () => await Sorting("Email"))" style="padding-right:8px;" />Email</th>
@@ -123,7 +139,7 @@ else
 
 
 @code
-{    
+{
 
     UserName[] usernames;
 
